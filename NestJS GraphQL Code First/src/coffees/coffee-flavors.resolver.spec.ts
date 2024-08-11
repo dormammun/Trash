@@ -1,18 +1,19 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { CoffeeFlavorsResolver } from './coffee-flavors.resolver';
+import { Test, TestingModule } from "@nestjs/testing"
 
-describe('CoffeeFlavorsResolver', () => {
-  let resolver: CoffeeFlavorsResolver;
+import { CoffeeFlavorsResolver } from "./coffee-flavors.resolver"
+
+describe("CoffeeFlavorsResolver", () => {
+  let resolver: CoffeeFlavorsResolver
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [CoffeeFlavorsResolver],
-    }).compile();
+    }).compile()
 
-    resolver = module.get<CoffeeFlavorsResolver>(CoffeeFlavorsResolver);
-  });
+    resolver = module.get<CoffeeFlavorsResolver>(CoffeeFlavorsResolver)
+  })
 
-  it('should be defined', () => {
-    expect(resolver).toBeDefined();
-  });
-});
+  it("should be defined", () => {
+    expect(resolver).toBeDefined()
+  })
+})

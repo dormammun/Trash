@@ -1,7 +1,7 @@
-import { FlavorEntity } from './flavor.entity';
+import { FlavorEntity } from "./flavor.entity"
 
-describe('FlavorEntity', () => {
-  it('should be defined', () => {
-    expect(new FlavorEntity()).toBeDefined();
-  });
-});
+describe("FlavorEntity", () => {
+  it("should be defined", () => {
+    expect(new FlavorEntity()).toBeDefined()
+  })
+})

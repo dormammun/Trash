@@ -1,5 +1,5 @@
-import {type DynamicModule, Module} from '@nestjs/common';
-import {type ConnectionOptions, createConnection} from "typeorm";
+import { type DynamicModule, Module } from "@nestjs/common"
+import { type ConnectionOptions, createConnection } from "typeorm"
 
 @Module({})
 export class DatabaseModule {
@@ -8,10 +8,10 @@ export class DatabaseModule {
       module: DatabaseModule,
       providers: [
         {
-          provide: 'CONNECTION',
+          provide: "CONNECTION",
           useValue: createConnection(options),
-        }
-      ]
+        },
+      ],
     }
   }
 }

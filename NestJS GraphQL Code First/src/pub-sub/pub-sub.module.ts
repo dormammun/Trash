@@ -1,8 +1,8 @@
-import { Module } from '@nestjs/common';
-import { PubSub } from 'graphql-subscriptions';
+import { Module } from "@nestjs/common"
+import { PubSub } from "graphql-subscriptions"
 
 @Module({
-  providers: [PubSub],
   exports: [PubSub],
+  providers: [PubSub],
 })
 export class PubSubModule {}

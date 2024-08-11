@@ -1,36 +1,41 @@
-import {CanActivate, ExecutionContext, ForbiddenException, Injectable, type Type} from '@nestjs/common';
-import type {Policy} from "./policy.interface";
-import  {Reflector} from "@nestjs/core";
-import  {PolicyHandlerStorage} from "./policy-handler.storage";
+import {
+  CanActivate,
+  ExecutionContext,
+  ForbiddenException,
+  Injectable,
+  type Type,
+} from "@nestjs/common"
+import { Reflector } from "@nestjs/core"
 
+import { PolicyHandlerStorage } from "./policy-handler.storage"
+import type { Policy } from "./policy.interface"
 
 @Injectable()
 export class PoliciesGuard implements CanActivate {
   constructor(
     private readonly reflector: Reflector,
-    private readonly policyHandlerStorage: PolicyHandlerStorage,
-  ) {
-  }
+    private readonly policyHandlerStorage: PolicyHandlerStorage
+  ) {}
 
-  async canActivate(
-    context: ExecutionContext,
-  ): Promise<boolean> {
-    const policies = this.reflector.getAllAndOverride<Policy[] | undefined>('policies', [
-      context.getHandler(),
-      context.getClass()
-    ])
-    const user = context.switchToHttp().getRequest()['activeUser'];
+  async canActivate(context: ExecutionContext): Promise<boolean> {
+    const policies = this.reflector.getAllAndOverride<Policy[] | undefined>(
+      "policies",
+      [context.getHandler(), context.getClass()]
+    )
+    const user = context.switchToHttp().getRequest()["activeUser"]
     if (!policies) {
       return true
     }
     try {
       for (const policy of policies) {
-        const handler = this.policyHandlerStorage.get(policy.constructor as Type);
-        await handler.handler(policy, user);
+        const handler = this.policyHandlerStorage.get(
+          policy.constructor as Type
+        )
+        await handler.handler(policy, user)
       }
-      return true;
+      return true
     } catch (e) {
-     return false
+      return false
     }
   }
 }

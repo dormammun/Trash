@@ -1,4 +1,6 @@
-import type {Policy} from "./policy.interface";
-import {SetMetadata} from "@nestjs/common";
+import { SetMetadata } from "@nestjs/common"
 
-export const Policies = (...policies: Policy[]) => SetMetadata('policies', policies);
+import type { Policy } from "./policy.interface"
+
+export const Policies = (...policies: Policy[]) =>
+  SetMetadata("policies", policies)

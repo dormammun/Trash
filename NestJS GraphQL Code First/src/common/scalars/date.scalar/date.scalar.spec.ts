@@ -1,7 +1,7 @@
-import { DateScalar } from './date.scalar';
+import { DateScalar } from "./date.scalar"
 
-describe('DateScalar', () => {
-  it('should be defined', () => {
-    expect(new DateScalar()).toBeDefined();
-  });
-});
+describe("DateScalar", () => {
+  it("should be defined", () => {
+    expect(new DateScalar()).toBeDefined()
+  })
+})

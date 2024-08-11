@@ -1,4 +1,6 @@
-import {SetMetadata} from "@nestjs/common";
-import type {PermissionType} from "../permission.type";
+import { SetMetadata } from "@nestjs/common"
 
-export const Permissions = (...permissions: PermissionType[]) => SetMetadata('permissions', permissions);
+import type { PermissionType } from "../permission.type"
+
+export const Permissions = (...permissions: PermissionType[]) =>
+  SetMetadata("permissions", permissions)

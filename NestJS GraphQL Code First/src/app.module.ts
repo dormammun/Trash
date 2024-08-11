@@ -1,55 +1,57 @@
-import { join } from 'path';
-import { Module, ValidationPipe } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloDriver, type ApolloDriverConfig } from '@nestjs/apollo';
-import { CoffeesModule } from './coffees/coffees.module';
-import * as process from 'node:process';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { APP_PIPE } from '@nestjs/core';
-import { DateScalar } from './common/scalars/date.scalar/date.scalar';
-import { TeaEntity } from './teas/entities/tea.entity/tea.entity';
-import { DrinksResolver } from './drinks/drinks.resolver';
-import { PubSubModule } from './pub-sub/pub-sub.module';
+import * as process from "node:process"
+import { join } from "path"
+
+import { ApolloDriver, type ApolloDriverConfig } from "@nestjs/apollo"
+import { Module, ValidationPipe } from "@nestjs/common"
+import { APP_PIPE } from "@nestjs/core"
+import { GraphQLModule } from "@nestjs/graphql"
+import { TypeOrmModule } from "@nestjs/typeorm"
+
+import { AppController } from "./app.controller"
+import { AppService } from "./app.service"
+import { CoffeesModule } from "./coffees/coffees.module"
+import { DateScalar } from "./common/scalars/date.scalar/date.scalar"
+import { DrinksResolver } from "./drinks/drinks.resolver"
+import { PubSubModule } from "./pub-sub/pub-sub.module"
+import { TeaEntity } from "./teas/entities/tea.entity/tea.entity"
 
 @Module({
+  controllers: [AppController],
   imports: [
     TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database: 'data.sqlite',
       autoLoadEntities: true,
-      synchronize: true,
+      database: "data.sqlite",
       logging: true,
+      synchronize: true,
+      type: "sqlite",
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
-      driver: ApolloDriver,
-      autoSchemaFile: join(process.cwd(), 'src/schema.graphql'),
+      autoSchemaFile: join(process.cwd(), "src/schema.graphql"),
       buildSchemaOptions: {
         // numberScalarMode: 'integer' // when parsing make number → Int, and not Float
         // dateScalarMode: 'timestamp' when parsing → return timestamp instead date
         orphanedTypes: [TeaEntity],
       },
+      driver: ApolloDriver,
       subscriptions: {
-        'graphql-ws': true,
+        "graphql-ws": true,
       },
     }),
     CoffeesModule,
     PubSubModule,
   ],
-  controllers: [AppController],
   providers: [
     AppService,
     DateScalar,
     {
       provide: APP_PIPE,
       useValue: new ValidationPipe({
-        transform: true,
-        whitelist: true,
         forbidUnknownValues: true,
+        transform: true,
         transformOptions: {
           enableImplicitConversion: true,
         },
+        whitelist: true,
       }),
     },
     DrinksResolver,

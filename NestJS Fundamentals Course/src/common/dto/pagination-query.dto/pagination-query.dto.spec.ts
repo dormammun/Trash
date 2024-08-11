@@ -1,7 +1,7 @@
-import { PaginationQueryDto } from './pagination-query.dto';
+import { PaginationQueryDto } from "./pagination-query.dto"
 
-describe('PaginationQueryDto', () => {
-  it('should be defined', () => {
-    expect(new PaginationQueryDto()).toBeDefined();
-  });
-});
+describe("PaginationQueryDto", () => {
+  it("should be defined", () => {
+    expect(new PaginationQueryDto()).toBeDefined()
+  })
+})
