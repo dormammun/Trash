@@ -1,0 +1,63 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+interface DrinkInterface {
+  name: String!
+}
+
+type Flavor {
+  id: ID!
+  name: String!
+  coffee: Coffee!
+}
+
+type Coffee implements DrinkInterface {
+  name: String!
+  id: ID!
+  brand: String!
+  flavors: [Flavor!]!
+  createdAt: Date
+  type: CoffeeType
+}
+
+enum CoffeeType {
+  ARABICA
+  ROBUSTA
+}
+
+type Tea implements DrinkInterface {
+  name: String!
+}
+
+scalar Date
+
+type Query {
+  drinks: [DrinkInterface!]!
+  coffees: [Coffee!]!
+  coffee(id: ID!): Coffee!
+}
+
+type Mutation {
+  createCoffee(createCoffeeInput: CreateCoffeeInput!): Coffee!
+  updateCoffee(id: ID!, updateCoffeeInput: UpdateCoffeeInput!): Coffee!
+  removeCoffee(id: ID!): Coffee!
+}
+
+input CreateCoffeeInput {
+  name: String!
+  brand: String!
+  flavors: [String!]!
+  type: CoffeeType!
+}
+
+input UpdateCoffeeInput {
+  name: String
+  brand: String
+  flavors: [String!]
+  type: CoffeeType
+}
+
+type Subscription {
+  coffeeAdded: Coffee!
+}
